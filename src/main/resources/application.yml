@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/users
+    username: postgres
+    password: admin
+  liquibase:
+    enabled: true
+    #changeLog: classpath:/db/changelog/db.changelog-master.yaml
+  jpa:
+    hibernate:
+      ddlAuto: none
+    showSql: true
+  application:
+    name: user-service
+  eureka:
+    instance:
+      appname: user-service
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka
+server:
+  port: 8085
+security:
+  jwt:
+    secret: asdkflajslfaieonver
+    access: 3600000
+
