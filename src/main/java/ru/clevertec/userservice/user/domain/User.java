@@ -2,44 +2,45 @@ package ru.clevertec.userservice.user.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
-import ru.clevertec.userservice.util.Role;
+import ru.clevertec.userservice.role.domain.Role;
 
-import java.util.UUID;
+import java.io.Serializable;
 
 @Table(name = "users")
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-public class User {
+@EqualsAndHashCode(exclude = "role")
+public class User implements Serializable {
     @Id
-    @Column(name = "id", columnDefinition = "uuid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private java.util.UUID userId;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
     @Column(name = "password")
     private String password;
-
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING)
+    @Column(name = "is_activated")
+    private boolean isActivated;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Role role;
+
 
 }

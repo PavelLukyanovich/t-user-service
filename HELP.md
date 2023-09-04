@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'ru.clevertec.user-service' is invalid and this project uses 'ru.clevertec.userservice' instead.
+* The original package name 'ru.clevertec.User-service' is invalid and this project uses 'ru.clevertec.userservice' instead.
 
 # Getting Started
 

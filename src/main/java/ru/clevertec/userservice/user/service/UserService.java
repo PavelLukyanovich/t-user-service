@@ -17,7 +17,7 @@ public interface UserService {
 
     UserDto deleteUser(UUID id);
 
-    UserDto updateUser(UpdateUserRequest request);
+    UserDto updateUser(UpdateUserRequest request, UUID roleId);
 
     UserDto getUserByEmail(String email);
 }

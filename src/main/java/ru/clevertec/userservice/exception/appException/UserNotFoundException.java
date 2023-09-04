@@ -1,4 +1,4 @@
-package ru.clevertec.userservice.exception;
+package ru.clevertec.userservice.exception.appException;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +10,5 @@ import java.util.UUID;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class UserNotFoundException extends RuntimeException {
-
     private UUID userId;
 }

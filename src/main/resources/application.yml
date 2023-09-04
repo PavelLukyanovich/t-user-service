@@ -5,11 +5,10 @@ spring:
     username: postgres
     password: admin
   liquibase:
-    enabled: true
-    #changeLog: classpath:/db/changelog/db.changelog-master.yaml
+    enabled: false
   jpa:
     hibernate:
-      ddlAuto: none
+      ddl-auto: create-drop
     showSql: true
   application:
     name: user-service
