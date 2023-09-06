@@ -1,15 +1,13 @@
 package ru.clevertec.userservice.security.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.clevertec.userservice.util.Role;
+import ru.clevertec.userservice.role.domain.Role;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -28,12 +26,12 @@ public class UserDetailsDto implements UserDetails {
     private String email;
     @JsonIgnore
     private String password;
-    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(role.name()));
+
+        return Collections.singletonList(new SimpleGrantedAuthority(role.getRoleName()));
     }
 
     @Override

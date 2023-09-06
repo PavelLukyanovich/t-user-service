@@ -1,4 +1,4 @@
-package ru.clevertec.userservice.exception;
+package ru.clevertec.userservice.exception.appException;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +8,5 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class UserExistsException extends RuntimeException {
-
     private String message;
 }

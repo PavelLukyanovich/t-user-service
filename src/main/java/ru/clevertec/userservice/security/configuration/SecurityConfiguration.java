@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -18,7 +17,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ru.clevertec.userservice.security.jwt.JwtTokenFilter;
 import ru.clevertec.userservice.security.jwt.JwtTokenProvider;
-import ru.clevertec.userservice.util.Role;
 
 @Slf4j
 @Configuration
@@ -67,17 +65,6 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/authentication/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/news").hasAnyAuthority(Role.ADMIN.name(), Role.JOURNALIST.name())
-                .requestMatchers(HttpMethod.POST, "/api/v1/comments").hasAnyAuthority(Role.ADMIN.name(), Role.SUBSCRIBER.name())
-                .requestMatchers(HttpMethod.PUT, "/api/v1/news").hasAnyAuthority(Role.ADMIN.name(), Role.JOURNALIST.name())
-                .requestMatchers(HttpMethod.PUT, "/api/v1/comments").hasAnyAuthority(Role.ADMIN.name(), Role.SUBSCRIBER.name())
-                .requestMatchers(HttpMethod.GET, "/api/v1/news").hasAuthority(Role.ADMIN.name())
-                .requestMatchers(HttpMethod.GET, "/api/v1/comments").hasAuthority(Role.ADMIN.name())
-                .requestMatchers(HttpMethod.DELETE, "/api/v1/news").hasAnyAuthority(Role.ADMIN.name(), Role.JOURNALIST.name())
-                .requestMatchers(HttpMethod.DELETE, "/api/v1/comments").hasAnyAuthority(Role.ADMIN.name(), Role.SUBSCRIBER.name())
-                .requestMatchers(HttpMethod.GET, "/api/v1/comments/{id}").hasAnyAuthority(Role.ADMIN.name(), Role.JOURNALIST.name())
-                .requestMatchers(HttpMethod.GET, "/api/v1/news").anonymous()
-                .requestMatchers(HttpMethod.GET, "/api/v1/comments").anonymous()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterAfter(new JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);

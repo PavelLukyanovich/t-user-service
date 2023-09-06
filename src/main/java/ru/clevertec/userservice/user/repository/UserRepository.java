@@ -4,10 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.clevertec.userservice.user.domain.User;
 
-import java.util.UUID;
+import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, UUID> {
-    User findUserByEmail(String email);
-
+public interface UserRepository extends JpaRepository<User, java.util.UUID> {
+    Optional<User> findUserByEmail(String email);
 }
