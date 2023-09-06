@@ -8,9 +8,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 import ru.clevertec.userservice.user.domain.User;
 
@@ -19,8 +19,8 @@ import java.time.LocalDateTime;
 
 @Table(name = "verificationtoken")
 @Entity
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = "user")

@@ -1,5 +1,6 @@
 package ru.clevertec.userservice.user.domain;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,9 +11,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import ru.clevertec.userservice.role.domain.Role;
 
 import java.io.Serializable;
@@ -22,7 +21,6 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "role")
 public class User implements Serializable {
     @Id
     @Column(name = "user_id")
@@ -34,12 +32,17 @@ public class User implements Serializable {
     private String lastName;
     @Column(name = "email", unique = true)
     private String email;
+    @Nullable
+    @Column(name = "phone")
+    private String phone;
+    @Nullable
+    @Column(name = "address")
+    private String address;
     @Column(name = "password")
     private String password;
-    @Column(name = "is_activated")
-    private boolean isActivated;
+    @Column(name = "is_active")
+    private boolean isActive;
     @ManyToOne(fetch = FetchType.LAZY)
-    @ToString.Exclude
     private Role role;
 
 

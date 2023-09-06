@@ -1,11 +1,8 @@
 package ru.clevertec.userservice.role.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,28 +18,24 @@ import ru.clevertec.userservice.user.domain.User;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 @Table(name = "user_role")
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "user")
+@EqualsAndHashCode(exclude = "users")
+@ToString(exclude = "users")
 public class Role implements Serializable {
     @Id
     @Column(name = "role_id")
     @GeneratedValue(strategy = GenerationType.UUID)
-    private java.util.UUID roleId;
-    @Enumerated(EnumType.STRING)
+    private UUID roleId;
     @Column(name = "role_name")
-    private UserRole roleName;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role_type")
-    private RoleType roleType;
+    private String roleName;
     @OneToMany(mappedBy = "role",
             fetch = FetchType.LAZY,
             cascade = CascadeType.DETACH)
-    @JsonIgnore
-    @ToString.Exclude
-    private List<User> user;
+    private List<User> users;
 }

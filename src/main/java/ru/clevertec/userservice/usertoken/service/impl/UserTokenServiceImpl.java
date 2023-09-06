@@ -1,9 +1,9 @@
 package ru.clevertec.userservice.usertoken.service.impl;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.clevertec.userservice.exception.appException.ExpireDateException;
 import ru.clevertec.userservice.user.repository.UserRepository;
 import ru.clevertec.userservice.usertoken.domain.VerificationToken;
 import ru.clevertec.userservice.usertoken.repository.UserTokenRepository;
@@ -19,21 +19,26 @@ public class UserTokenServiceImpl implements UserTokenService {
 
     private final UserTokenRepository userTokenRepository;
     private final UserRepository userRepository;
+
     @Override
     public VerificationToken getVerificationToken(String token) {
-        return userTokenRepository.findTokenByToken(token);
+        var tokenByToken = userTokenRepository.findTokenByToken(token);
+        if (!tokenByToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+            return tokenByToken;
+        } else {
+            throw new ExpireDateException("token was expired");
+        }
     }
 
     @Override
-    @Transactional
     public VerificationToken generateVerificationToken(UUID userId) {
+        String token = UUID.randomUUID().toString();
         LocalDateTime now = LocalDateTime.now();
-        String token = java.util.UUID.randomUUID().toString();
-        VerificationToken verificationToken = new VerificationToken();
-        verificationToken.setToken(token);
-        verificationToken.setUser(userRepository.findById(userId).orElseThrow());
-        verificationToken.setExpiryDate(now.plusSeconds(15));
-        return verificationToken;
+        return VerificationToken.builder()
+                .token(token)
+                .user(userRepository.findById(userId).orElseThrow())
+                .expiryDate(now.plusHours(24))
+                .build();
     }
 
     @Override

@@ -12,12 +12,6 @@ spring:
     showSql: true
   application:
     name: user-service
-  eureka:
-    instance:
-      appname: user-service
-    client:
-      serviceUrl:
-        defaultZone: http://localhost:8761/eureka
 server:
   port: 8085
 security:

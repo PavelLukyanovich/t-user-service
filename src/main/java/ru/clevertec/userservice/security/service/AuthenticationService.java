@@ -7,5 +7,5 @@ public interface AuthenticationService {
 
     JwtResponse login(JwtRequest loginRequest);
 
-
+    JwtResponse confirm(String token);
 }

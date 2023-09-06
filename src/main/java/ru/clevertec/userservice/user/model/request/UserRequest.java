@@ -16,5 +16,7 @@ public class UserRequest {
     private String lastName;
     private String email;
     private String password;
-    private boolean isActivated;
+    private String phone;
+    private String address;
+    private boolean isActive;
 }

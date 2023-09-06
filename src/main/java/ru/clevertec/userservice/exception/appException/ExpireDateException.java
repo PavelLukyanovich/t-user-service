@@ -7,6 +7,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ResourceNotFoundException extends RuntimeException {
+public class ExpireDateException extends RuntimeException {
     private String message;
 }

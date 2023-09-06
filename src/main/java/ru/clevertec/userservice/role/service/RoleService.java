@@ -1,7 +1,7 @@
 package ru.clevertec.userservice.role.service;
 
 import ru.clevertec.userservice.role.domain.Role;
-import ru.clevertec.userservice.role.model.CreateRoleRequest;
+import ru.clevertec.userservice.role.model.request.CreateRoleRequest;
 
 import java.util.UUID;
 

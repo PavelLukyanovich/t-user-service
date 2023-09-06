@@ -5,5 +5,6 @@ import ru.clevertec.userservice.usertoken.domain.VerificationToken;
 
 public interface LinkService {
     ActivationLink saveLink(ActivationLink activationLink);
+
     ActivationLink generateLink(VerificationToken token);
 }

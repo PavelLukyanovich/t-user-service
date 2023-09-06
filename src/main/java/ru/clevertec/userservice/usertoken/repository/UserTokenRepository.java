@@ -10,6 +10,7 @@ import java.util.UUID;
 
 public interface UserTokenRepository extends JpaRepository<VerificationToken, UUID> {
     VerificationToken findTokenByToken(String token);
+
     @Query(value = "insert into links (link) values (:link)", nativeQuery = true)
     ActivationLink saveLink(@Param("link") ActivationLink link);
 }

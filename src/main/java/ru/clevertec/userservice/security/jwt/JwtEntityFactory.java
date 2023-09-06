@@ -13,7 +13,7 @@ public class JwtEntityFactory {
                 User.getLastName(),
                 User.getEmail(),
                 User.getPassword(),
-               mapToGrantedAuthorities(User.getRole())
+                mapToGrantedAuthorities(User.getRole())
         );
     }
 

@@ -10,6 +10,6 @@ public record UserDto(UUID userId,
                       String lastName,
                       String email,
                       String password,
-                      boolean isActivated,
+                      boolean isActive,
                       Role role) {
 }

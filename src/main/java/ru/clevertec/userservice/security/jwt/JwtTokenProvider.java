@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import ru.clevertec.userservice.security.model.dto.UserDetailsDto;
+import ru.clevertec.userservice.user.domain.User;
 
 import javax.xml.bind.DatatypeConverter;
 import java.util.Date;
@@ -30,17 +31,22 @@ public class JwtTokenProvider {
         UserDetailsDto principal = (UserDetailsDto) authentication.getPrincipal();
         Claims claims = Jwts.claims().setSubject(principal.getEmail());
         log.info("!!!Claims = {}", claims);
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + jwtProperties.getAccess());
-        return generateToken(claims, now, validity);
+
+        return generateToken(claims);
     }
 
-    private String generateToken(Claims claims, Date now, Date validity) {
+    public String createAccessToken(User user) {
+        var claims = Jwts.claims().setSubject(user.getEmail());
+        return generateToken(claims);
+    }
+
+    private String generateToken(Claims claims) {
+        Date now = new Date();
         log.info("!!!In generateToken()/// Claims = {}", claims);
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
-                .setExpiration(validity)
+                .setExpiration(new Date(now.getTime() + jwtProperties.getAccess()))
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
                 .compact();
     }
